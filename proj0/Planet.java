@@ -1,3 +1,5 @@
+
+
 public class Planet{
     public double xxPos;
     public double yyPos;
@@ -32,5 +34,25 @@ public class Planet{
     public double calcForceExertedBy(Planet p){
         double r=calcDistance(p);
         return Gconst*mass*p.mass/(r*r);
+    }
+    public double calcForceExertedByX(Planet p){
+        return (p.xxPos-xxPos)/calcDistance(p)*calcForceExertedBy(p);
+    }
+    public double calcForceExertedByY(Planet p){
+        return (p.yyPos-yyPos)/calcDistance(p)*calcForceExertedBy(p);
+    }
+    public double calcNetForceExertedByX(Planet [] allPlanets){
+        double tot=0;
+        for(int i=0;i<allPlanets.length;++i){
+            if(!this.equals(allPlanets[i]))tot+=calcForceExertedByX(allPlanets[i]);
+        }
+        return tot;
+    }
+    public double calcNetForceExertedByY(Planet [] allPlanets){
+        double tot=0;
+        for(int i=0;i<allPlanets.length;++i){
+            if(!this.equals(allPlanets[i]))tot+=calcForceExertedByY(allPlanets[i]);
+        }
+        return tot;
     }
 }
