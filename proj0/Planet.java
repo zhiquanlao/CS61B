@@ -55,4 +55,12 @@ public class Planet{
         }
         return tot;
     }
+    public void update(double time, double xxForce, double yyForce){
+        double xxAce=xxForce/mass;
+        double yyAce=yyForce/mass;
+        xxVel+=time*xxAce;
+        yyVel+=time*yyAce;
+        xxPos+=time*xxVel;
+        yyPos+=time*yyVel;
+    }
 }
