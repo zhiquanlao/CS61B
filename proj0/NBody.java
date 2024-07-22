@@ -32,6 +32,8 @@ public class NBody{
         //Draw the background
         StdDraw.setScale(-radius,radius);
         StdDraw.picture(0,0,"images/starfield.jpg");
-        StdDraw.show();
+        for(int i=0;i<planets.length;++i){
+            planets[i].draw();
+        }
     }
 }
