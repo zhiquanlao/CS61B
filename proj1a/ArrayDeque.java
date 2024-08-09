@@ -7,8 +7,8 @@ public class ArrayDeque<T>{
     public ArrayDeque(){
         items  =  (T[]) new Object[8];
         size = 0;
-        next_first = 7;
-        next_last = 1;
+        next_first = 0;
+        next_last = 0;
     }
 
     public int size(){
@@ -25,26 +25,27 @@ public class ArrayDeque<T>{
             new_item[i] = items[index_to_array_index(i)];
         }
         next_first = capacity - 1;
-        next_last = size + 1;
+        next_last = size;
         items = new_item;
     }
 
     public void addFirst(T it){
         if(size == items.length) {
-            resize( (int) Math.ceil(items.length*(1 + Usage_factor)));
+            resize( (int) Math.ceil(items.length * (1 + Usage_factor)));
         }
         items[next_first] = it;
         size += 1;
         next_first = (next_first - 1) % items.length;
         if(next_first < 0)next_first += items.length;
     }
+
     public void addLast(T it){
         if(size == items.length){
             resize( (int) Math.ceil(items.length*(1+Usage_factor)));
         }
         items[next_last] = it;
         size += 1;
-        next_last = (next_first+1)%items.length;
+        next_last = (next_last + 1) % items.length;
     }
 
     public boolean isEmpty(){
@@ -59,6 +60,9 @@ public class ArrayDeque<T>{
 
     public T removeFirst(){
         T ans = get(0);
+        if(ans == null){
+            return ans;
+        }
         items[index_to_array_index(0)] = null;
         size -= 1;
         next_first = index_to_array_index(1);
@@ -69,6 +73,9 @@ public class ArrayDeque<T>{
     }
     public T removeLast(){
         T ans = get(size - 1);
+        if(ans == null){
+            return ans;
+        }
         items[index_to_array_index(size - 1)] = null;
         size -= 1;
         next_last = (next_last-1) % items.length;
