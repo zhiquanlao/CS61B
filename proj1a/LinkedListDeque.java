@@ -24,8 +24,8 @@ public class LinkedListDeque<T>{
         return size;
     }
     public void printDeque(){
-        Node ptr=sentinel.next;
-        while (ptr.next != sentinel){
+        Node ptr = sentinel.next;
+        while (ptr.next != sentinel) {
             System.out.print(ptr.data+" ");
         }
     }
