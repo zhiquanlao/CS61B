@@ -29,9 +29,19 @@ public class ArrayDeque<T>{
         for(int i = 0; i < size; ++i) {
             new_item[i] = items[index_to_array_index(i)];
         }
+
+        
+
         next_first = capacity - 1;
         next_last = size;
+        
         items = new_item;
+
+        // System.out.println("resize: next_first="+next_first+" next_last="+next_last);
+        // for(int i=0;i<items.length;++i){
+        //     System.out.print(items[i]+" ");
+        // }
+        // System.out.println();
     }
 
     public void addFirst(T it){
@@ -75,9 +85,9 @@ public class ArrayDeque<T>{
         T ans = get(0);
         items[index_to_array_index(0)] = null;
         size -= 1;
-        next_first = index_to_array_index(1);
+        next_first = index_to_array_index(0);
         if(((double)size)/items.length<Usage_factor){
-            resize(items.length/2+1);
+            resize(items.length/2);
         }
         return ans;
     }
@@ -89,7 +99,7 @@ public class ArrayDeque<T>{
         next_last = (next_last-1) % items.length;
         if(next_last < 0)next_last += items.length;
         if(((double)size)/items.length<Usage_factor){
-            resize(items.length/2+1);
+            resize(items.length/2);
         }
         return ans;
     }

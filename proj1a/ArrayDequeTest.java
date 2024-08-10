@@ -1,3 +1,6 @@
+
+import java.awt.desktop.SystemEventListener;
+
 /** Performs some basic linked list tests. */
 public class ArrayDequeTest {
 	
@@ -60,6 +63,47 @@ public class ArrayDequeTest {
 		
 	}
 
+	public static void TestGet(){
+		ArrayDeque<Integer> ad1= new ArrayDeque<Integer>();
+		ad1.addLast(0);
+         ad1.addFirst(1);
+         ad1.addFirst(2);
+        ad1.addLast(0);
+         ad1.addFirst(1);
+         ad1.addFirst(2);
+         ad1.addFirst(3);
+         ad1.addLast(4);
+		 ad1.printDeque();
+		 System.out.println();
+         System.out.println(ad1.get(3)+" ");
+         System.out.println(ad1.removeLast());
+		ad1.printDeque();
+		 System.out.println();
+         ad1.addFirst(7);
+         ad1.addFirst(8);
+         ad1.addFirst(9);
+         ad1.addLast(10);
+ad1.printDeque();
+		 System.out.println();
+         System.out.println(ad1.get(2));
+         System.out.println(ad1.get(6));
+ad1.printDeque();
+		 System.out.println();
+         System.out.println(ad1.removeLast());
+         System.out.println(ad1.get(0));
+         System.out.println(ad1.removeLast());
+ad1.printDeque();
+		 System.out.println();
+         System.out.println(ad1.get(5));
+         System.out.println(ad1.get(3));
+         System.out.println(ad1.removeFirst());
+ad1.printDeque();
+		 System.out.println();
+         ad1.addFirst(19);
+ad1.printDeque();
+		 System.out.println();
+         System.out.println(ad1.removeLast());
+	}
 	/** Adds an item, then removes an item, and ensures that dll is empty afterwards. */
 	public static void addRemoveTest() {
 
@@ -84,7 +128,6 @@ public class ArrayDequeTest {
 
 	public static void main(String[] args) {
 		System.out.println("Running tests.\n");
-		addIsEmptySizeTest();
-		addRemoveTest();
+		TestGet();
 	}
 } 
