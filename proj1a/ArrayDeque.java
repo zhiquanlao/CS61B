@@ -21,6 +21,11 @@ public class ArrayDeque<T>{
 
     private void resize(int capacity){
         T[] new_item =  (T []) new Object[capacity];
+        if(isEmpty()){
+            items = new_item;
+            next_first = next_last = 0;
+            return;
+        }
         for(int i = 0; i < size; ++i) {
             new_item[i] = items[index_to_array_index(i)];
         }
@@ -30,6 +35,9 @@ public class ArrayDeque<T>{
     }
 
     public void addFirst(T it){
+        if(isEmpty()){
+            next_last=(next_last+1)%items.length;
+        }
         if(size == items.length) {
             resize( (int) Math.ceil(items.length * (1 + Usage_factor)));
         }
@@ -40,8 +48,12 @@ public class ArrayDeque<T>{
     }
 
     public void addLast(T it){
+        if(isEmpty()){
+            next_first=(next_first-1)%items.length;
+            if(next_first<0)next_first+=items.length;
+        }
         if(size == items.length){
-            resize( (int) Math.ceil(items.length*(1+Usage_factor)));
+            resize( (int) Math.ceil(items.length * (1 + Usage_factor)));
         }
         items[next_last] = it;
         size += 1;
@@ -53,16 +65,14 @@ public class ArrayDeque<T>{
     }
 
     public void printDeque(){
-        for(int i = (next_first + 1) % items.length; i != next_last;i = (i + 1)%items.length){
-            System.out.print(items[i]+" ");
+        for(int i = 0; i < size; ++i){
+            System.out.print(items[index_to_array_index(i)]+" ");
         }
     }
 
     public T removeFirst(){
+        if(isEmpty())return null;
         T ans = get(0);
-        if(ans == null){
-            return ans;
-        }
         items[index_to_array_index(0)] = null;
         size -= 1;
         next_first = index_to_array_index(1);
@@ -72,10 +82,8 @@ public class ArrayDeque<T>{
         return ans;
     }
     public T removeLast(){
+        if(isEmpty())return null;
         T ans = get(size - 1);
-        if(ans == null){
-            return ans;
-        }
         items[index_to_array_index(size - 1)] = null;
         size -= 1;
         next_last = (next_last-1) % items.length;
