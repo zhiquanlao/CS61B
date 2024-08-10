@@ -20,6 +20,7 @@ public class ArrayDeque<T>{
     }
 
     private void resize(int capacity){
+        if(capacity <= 8)return;
         T[] new_item =  (T []) new Object[capacity];
         if(isEmpty()){
             items = new_item;
@@ -46,7 +47,7 @@ public class ArrayDeque<T>{
 
     public void addFirst(T it){
         if(isEmpty()){
-            next_last=(next_last+1)%items.length;
+            next_last=(next_last + 1) % items.length;
         }
         if(size == items.length) {
             resize( (int) Math.ceil(items.length * (1 + Usage_factor)));
@@ -59,8 +60,8 @@ public class ArrayDeque<T>{
 
     public void addLast(T it){
         if(isEmpty()){
-            next_first=(next_first-1)%items.length;
-            if(next_first<0)next_first+=items.length;
+            next_first=(next_first-1) % items.length;
+            if(next_first<0)next_first += items.length;
         }
         if(size == items.length){
             resize( (int) Math.ceil(items.length * (1 + Usage_factor)));
