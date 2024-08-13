@@ -126,8 +126,53 @@ ad1.printDeque();
 		
 	}
 
+	public static void ADBasic(){
+		ArrayDeque<Integer> ad1= new ArrayDeque<Integer>();
+		ad1.addLast(0);
+		ad1.printDeque();
+		System.out.println();
+		System.out.println(ad1.removeLast());
+		System.out.println(ad1.isEmpty());
+		ad1.addLast(3);
+		ad1.printDeque();
+		System.out.println();
+		System.out.println(ad1.removeLast());
+	}
+	public static void ADBasic2(){
+		ArrayDeque<Integer> ad1= new ArrayDeque<Integer>();
+		ad1.addLast(0);
+		ad1.printDeque();
+		System.out.println(ad1.isEmpty());
+		System.out.println();
+		System.out.println(ad1.removeFirst());
+		
+		ad1.addLast(3);
+		ad1.printDeque();
+		System.out.println();
+		System.out.println(ad1.removeFirst());
+	}
+	
+	public static void ADBasic3() {
+		ArrayDeque<Integer> ad1= new ArrayDeque<Integer>();
+		ad1.addFirst(0);
+         System.out.println(ad1.removeLast());      
+         System.out.println(ad1.isEmpty());
+         System.out.println(ad1.isEmpty());
+         System.out.println(ad1.size());
+         System.out.println(ad1.isEmpty());
+         System.out.println(ad1.isEmpty());
+         ad1.addFirst(7);
+         System.out.println(ad1.removeFirst() ) ;  
+        System.out.println( ad1.size());
+         ad1.addLast(10);
+         System.out.println(ad1.removeFirst() ) ;
+	}
 	public static void main(String[] args) {
 		System.out.println("Running tests.\n");
-		TestGet();
+		ADBasic();
+		System.out.println("ADBasic2");
+		ADBasic2();
+		System.out.println("ADBasic3");
+		ADBasic3();
 	}
 } 

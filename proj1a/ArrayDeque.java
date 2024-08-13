@@ -90,6 +90,9 @@ public class ArrayDeque<T>{
         if(((double)size)/items.length<Usage_factor){
             resize(items.length/2);
         }
+        if(isEmpty()){
+            next_last=next_first;
+        }
         return ans;
     }
     public T removeLast(){
@@ -101,6 +104,9 @@ public class ArrayDeque<T>{
         if(next_last < 0)next_last += items.length;
         if(((double)size)/items.length<Usage_factor){
             resize(items.length/2);
+        }
+        if(isEmpty()){
+            next_first=next_last;
         }
         return ans;
     }
