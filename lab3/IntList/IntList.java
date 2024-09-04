@@ -117,7 +117,19 @@ public class IntList {
         return result;
     }
 
-
+    public static IntList reverse(IntList A) {
+        IntList frontOfReversed = null;
+        IntList nextNodeToAdd = A;
+        while (nextNodeToAdd != null) {
+         IntList remainderOfOriginal = nextNodeToAdd.rest;
+         nextNodeToAdd.rest = frontOfReversed;
+         frontOfReversed = nextNodeToAdd;
+         nextNodeToAdd = remainderOfOriginal;
+         System.out.println("frontofReversed: "+frontOfReversed+", nextAdd: "+nextNodeToAdd);
+        }
+        A = frontOfReversed;
+        return A;
+    }
     // public static IntList reverse(IntList A) {
     //     if(A == null) {
     //         return null;
@@ -126,29 +138,15 @@ public class IntList {
     //         return A;
     //     }
     //     IntList B = new IntList(A.first, null);
-    //     A = catenate(reverse(A.rest),B);
-    //     // IntList reversed = reverseHelp(A.rest);
-    //     // A.rest.rest = A;
-    //     // A.rest = null;
+    //     IntList C= reverse(A.rest);
+    //     A = new IntList(C.first,catenate(C, B).rest);
     //     return A;
     // }
-    public static IntList reversehelp(IntList A) {
-        if(A == null) {
-            return null;
-        }
-        if (A.rest == null){
-            return A;
-        }
-        IntList B = new IntList(A.first, null);
-        return  catenate(reversehelp(A.rest),B);
-        // IntList reversed = reverseHelp(A.rest);
-        // A.rest.rest = A;
-        // A.rest = null;
-    }
-    public static IntList reverse(IntList A) {
-        A = reversehelp(A);
-        return A;
-    }
+    // public static IntList reverse(IntList A) {
+    //     A = reversehelp(A);
+    //     return A;
+    // }
+
 
 
 
