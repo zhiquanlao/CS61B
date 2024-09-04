@@ -97,7 +97,7 @@ public class LinkedListDeque<T> implements Deque<T>{
         return ptr.data;
     }
 
-    @Override
+    
     public T getRecursive(int index){
         if(index > size)return null;
         return sentinel.next.getIndex(index);
