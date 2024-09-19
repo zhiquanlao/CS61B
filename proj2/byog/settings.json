@@ -1,0 +1,8 @@
+{
+    "java.project.sourcePaths": ["byog"],
+    "java.project.outputPath": "bin",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "/home/zlaoaa/CS61B/library-sp18/javalib/*.jar"
+    ]
+}
