@@ -18,6 +18,12 @@ public class GuitarString {
         //       cast the result of this divsion operation into an int. For better
         //       accuracy, use the Math.round() function before casting.
         //       Your buffer should be initially filled with zeros.
+        buffer = new ArrayRingBuffer((int) Math.round(SR / frequency));
+        for (int i = 0; i < buffer.capacity(); ++i) {
+            buffer.enqueue(0.0);
+        }
+
+        //System.out.println("GuitarString(), buffer.fillCount(): "+buffer.fillCount()+" ,buffer.peek(): "+buffer.peek());
     }
 
 
@@ -28,6 +34,15 @@ public class GuitarString {
         //       double r = Math.random() - 0.5;
         //
         //       Make sure that your random numbers are different from each other.
+        int size = buffer.fillCount();
+        for (int i = 0; i < size; ++i) {
+            buffer.dequeue();
+            buffer.enqueue(Math.random() - 0.5);
+        }
+
+
+        //System.out.println("pluck(), buffer.fillCount(): "+buffer.fillCount()+" ,buffer.peek(): "+buffer.peek());
+
     }
 
     /* Advance the simulation one time step by performing one iteration of
@@ -37,11 +52,19 @@ public class GuitarString {
         // TODO: Dequeue the front sample and enqueue a new sample that is
         //       the average of the two multiplied by the DECAY factor.
         //       Do not call StdAudio.play().
+        double first = buffer.dequeue();
+        buffer.enqueue((first + buffer.peek()) / 2 * DECAY);
+        //System.out.println("tic(), buffer.fillCount(): "+buffer.fillCount()+" ,buffer.peek(): "+buffer.peek());
+
     }
 
     /* Return the double at the front of the buffer. */
     public double sample() {
         // TODO: Return the correct thing.
-        return 0;
+        
+        //System.out.println("sample(), buffer.fillCount(): "+buffer.fillCount()+" ,buffer.peek(): "+buffer.peek());
+
+        return buffer.peek();
+
     }
 }
