@@ -1,7 +1,5 @@
 package hw2;
 
-import javax.net.ssl.StandardConstants;
-
 import edu.princeton.cs.introcs.StdRandom;
 
 import edu.princeton.cs.introcs.StdStats;
@@ -45,10 +43,10 @@ public class PercolationStats {
     }  
     // low endpoint of 95% confidence interval                                       
     public double confidenceLow() {
-        return mean() - 1.96*stddev()/Math.sqrt(time_sim);
+        return mean() - 1.96 * stddev() / Math.sqrt(time_sim);
     }
     // high endpoint of 95% confidence interval                                 
     public double confidenceHigh() {
-        return mean() + 1.96*stddev()/Math.sqrt(time_sim);
+        return mean() + 1.96 * stddev() / Math.sqrt(time_sim);
     }
 }
