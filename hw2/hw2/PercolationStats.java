@@ -23,10 +23,10 @@ public class PercolationStats {
 
     // perform T independent experiments on an N-by-N grid
     public PercolationStats(int N, int T, PercolationFactory pf) {
-        stat = new double[N];
         if (N <= 0 || T <= 0) {
             throw new IllegalArgumentException();
         }
+        stat = new double[N];
         time_sim = T;
         for (int i = 0; i < T; i++) {
             Percolation perc = pf.make(N);

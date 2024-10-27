@@ -45,7 +45,10 @@ public class Percolation {
         if (row < 0 || row >= num_grid || col < 0 || col >= num_grid) {
             throw new IndexOutOfBoundsException();
         }
-
+        //do nothing if it is already open
+        if (site[row][col]) {
+            return;
+        }
         site[row][col] = true;
 
         //union the site to nearby site
