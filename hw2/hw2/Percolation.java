@@ -104,7 +104,7 @@ public class Percolation {
             if(isFull(num_grid, i)) {
                 return true;
             }
-            retur false;
+            return false;
         }
     }             
     public static void main(String[] args) {
