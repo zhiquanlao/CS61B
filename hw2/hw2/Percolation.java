@@ -8,13 +8,11 @@ public class Percolation {
     private int num_open;
     private WeightedQuickUnionUF sets;
     private boolean [][] site;
-    private boolean percolate;
     // create N-by-N grid, with all sites initially blocked
     public Percolation(int N) {
         if (N <= 0) {
             throw new IllegalArgumentException();
         }
-        percolate = false;
         //initialize all sites to block
         site = new boolean[N][N];
         for (int i = 0; i < N; i++) {
@@ -23,11 +21,12 @@ public class Percolation {
             }
         }
         //site[i][j] is denoted by i * N + j in sets,
-        //the N*Nth is top
-        sets = new WeightedQuickUnionUF(N * N + 1);
+        //the N*Nth is top, N*N+1 is the bottom
+        sets = new WeightedQuickUnionUF(N * N + 2);
         num_grid = N;
         num_open = 0;
     }
+
     //convert [row][col] to the index in sets
     private int row_col_to_index(int row, int col) {
         return row * num_grid + col;
@@ -40,6 +39,7 @@ public class Percolation {
     private int row_of_index(int ind) {
         return ind / num_grid;
     }
+    
     // open the site (row, col) if it is not open already
     public void open(int row, int col) {
         if (row < 0 || row >= num_grid || col < 0 || col >= num_grid) {
@@ -65,12 +65,8 @@ public class Percolation {
             sets.union(row_col_to_index(row, col), row_col_to_index(row, col + 1));
         }
         if (row == num_grid - 1) {
-            //if it is the last row, check if the system is percolate
-            if (!percolate && isFull(row, col)) {
-                percolate = true;
-            }
             //if it is the last row, union it to the bottom
-           //sets.union(row_col_to_index(row, col), num_grid * num_grid + 1);
+           sets.union(row_col_to_index(row, col), num_grid * num_grid + 1);
         } else if (site[row + 1][col]) {
             sets.union(row_col_to_index(row, col), row_col_to_index(row + 1, col));
         }
@@ -103,7 +99,7 @@ public class Percolation {
     
     // does the system percolate?
     public boolean percolates() {
-        return percolate;
+        return sets.find(num_grid * num_grid) == sets.find(num_grid * num_grid + 1);
     }             
     public static void main(String[] args) {
 
