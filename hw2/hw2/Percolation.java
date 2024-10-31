@@ -8,13 +8,13 @@ public class Percolation {
     private int num_open;
     private WeightedQuickUnionUF sets;
     private boolean [][] site;
-    
+    private boolean percolate;
     // create N-by-N grid, with all sites initially blocked
     public Percolation(int N) {
         if (N <= 0) {
             throw new IllegalArgumentException();
         }
-
+        percolate = false;
         //initialize all sites to block
         site = new boolean[N][N];
         for (int i = 0; i < N; i++) {
@@ -52,12 +52,6 @@ public class Percolation {
         site[row][col] = true;
 
         //union the site to nearby site
-        if (row == num_grid - 1) {
-            //if it is the last row, union it to the bottom
-           //sets.union(row_col_to_index(row, col), num_grid * num_grid + 1);
-        } else if (site[row + 1][col]) {
-            sets.union(row_col_to_index(row, col), row_col_to_index(row + 1, col));
-        }
         if (row == 0) {
             //if at top row, union it to top
             sets.union(row_col_to_index(row, col), num_grid * num_grid);
@@ -69,6 +63,16 @@ public class Percolation {
         }
         if (col + 1 <= num_grid - 1 && site[row][col + 1]) {
             sets.union(row_col_to_index(row, col), row_col_to_index(row, col + 1));
+        }
+        if (row == num_grid - 1) {
+            //if it is the last row, check if the system is percolate
+            if (!percolate && isFull(row, col)) {
+                percolate = true;
+            }
+            //if it is the last row, union it to the bottom
+           //sets.union(row_col_to_index(row, col), num_grid * num_grid + 1);
+        } else if (site[row + 1][col]) {
+            sets.union(row_col_to_index(row, col), row_col_to_index(row + 1, col));
         }
         num_open += 1;
     }   
@@ -99,13 +103,7 @@ public class Percolation {
     
     // does the system percolate?
     public boolean percolates() {
-        //return sets.find(num_grid * num_grid + 1) == sets.find(num_grid * num_grid);
-        for (int i = 0; i < num_grid; ++i) {
-            if(isFull(num_grid, i)) {
-                return true;
-            }
-        }
-        return false;
+        return percolate;
     }             
     public static void main(String[] args) {
 
