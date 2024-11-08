@@ -7,6 +7,7 @@ public class Percolation {
     private int num_grid;
     private int num_open;
     private WeightedQuickUnionUF sets;
+    private WeightedQuickUnionUF check_is_full;
     private boolean [][] site;
     // create N-by-N grid, with all sites initially blocked
     public Percolation(int N) {
@@ -23,6 +24,8 @@ public class Percolation {
         //site[i][j] is denoted by i * N + j in sets,
         //the N*Nth is top, N*N+1 is the bottom
         sets = new WeightedQuickUnionUF(N * N + 2);
+        //N*Nth is the top
+        check_is_full = new WeightedQuickUnionUF(N * N + 1);
         num_grid = N;
         num_open = 0;
     }
@@ -55,20 +58,25 @@ public class Percolation {
         if (row == 0) {
             //if at top row, union it to top
             sets.union(row_col_to_index(row, col), num_grid * num_grid);
+            check_is_full.union(row_col_to_index(row, col), num_grid * num_grid);
         } else if (site[row - 1][col]) {
             sets.union(row_col_to_index(row, col), row_col_to_index(row - 1, col));
+            check_is_full.union(row_col_to_index(row, col), row_col_to_index(row - 1, col));
         }
         if (col - 1 >= 0 && site[row][col - 1]) {
             sets.union(row_col_to_index(row, col), row_col_to_index(row, col - 1));
+            check_is_full.union(row_col_to_index(row, col), row_col_to_index(row, col - 1));
         }
         if (col + 1 <= num_grid - 1 && site[row][col + 1]) {
             sets.union(row_col_to_index(row, col), row_col_to_index(row, col + 1));
+            check_is_full.union(row_col_to_index(row, col), row_col_to_index(row, col + 1));
         }
         if (row == num_grid - 1) {
             //if it is the last row, union it to the bottom
            sets.union(row_col_to_index(row, col), num_grid * num_grid + 1);
         } else if (site[row + 1][col]) {
             sets.union(row_col_to_index(row, col), row_col_to_index(row + 1, col));
+            check_is_full.union(row_col_to_index(row, col), row_col_to_index(row + 1, col));
         }
         num_open += 1;
     }   
@@ -89,7 +97,7 @@ public class Percolation {
         if (!isOpen(row, col)) {
             return false;
         }
-        return sets.find(num_grid * num_grid) == sets.find(row_col_to_index(row, col));
+        return check_is_full.find(num_grid * num_grid) == check_is_full.find(row_col_to_index(row, col));
     } 
 
     // number of open sites
