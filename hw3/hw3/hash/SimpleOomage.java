@@ -14,7 +14,7 @@ public class SimpleOomage implements Oomage {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null){
+        if (o == null) {
             return false;
         }
         if (o.getClass() != this.getClass()) {
