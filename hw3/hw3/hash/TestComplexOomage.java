@@ -49,9 +49,9 @@ public class TestComplexOomage {
             parm.add(0);
             parm.add(0);
             deadlyList.add(new ComplexOomage(parm));
-            if (i % 10 == 1) {
-                System.out.println(deadlyList.get(i).hashCode());
-            }
+            // if (i % 10 == 1) {
+            //     System.out.println(deadlyList.get(i).hashCode());
+            // }
         }
         assertTrue(OomageTestUtility.haveNiceHashCodeSpread(deadlyList, 10));
     } 
