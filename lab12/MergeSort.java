@@ -42,6 +42,7 @@ public class MergeSort {
             }
             return queue;
     }
+   
 
     /**
      * Returns a new queue that contains the items in q1 and q2 in sorted order.
@@ -69,19 +70,34 @@ public class MergeSort {
     /** Returns a Queue that contains the given items sorted from least to greatest. */
     public static <Item extends Comparable> Queue<Item> mergeSort(
             Queue<Item> items) {
-            Queue<Queue<Item>> allQueue = makeSingleItemQueues(items);
-            Queue<Item> result = new Queue();
-            int size = allQueue.size();
-            for (int i = 0; i < size; ++i) {
-                result = mergeSortedQueues(result, allQueue.dequeue());
+            if (items.size() == 0 || items.size() == 1) {
+                return items;
             }
+            Queue<Item> first = new Queue();
+            Queue<Item> second = new Queue();
+            int size = items.size();
+            for (int i = 0; i < size; i++) {
+                if (i < size / 2) {
+                    first.enqueue(items.dequeue());
+                }
+                else {
+                    second.enqueue(items.dequeue());
+                }
+            }
+            first = mergeSort(first);
+            second = mergeSort(second);
+            Queue<Item> result = mergeSortedQueues(first, second);
             return result;
     }
     public static void main(String[] args) {
         Queue<String> students = new Queue<String>();
-        students.enqueue("Alice");
-        students.enqueue("Vanessa");
-        students.enqueue("Ethan");
+        students.enqueue("a");
+        students.enqueue("k");
+        students.enqueue("d");
+        students.enqueue("f");
+        students.enqueue("g");
+        students.enqueue("z");
+        students.enqueue("g");
         for (String s:students) {
             System.out.print(s+", ");
         }
